@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+	<title>FakeBook</title>
+	<link rel="stylesheet" type="text/css" href="assets/css/design.css">
+</head>
+<body>
+
+	
+
+<div id="background">
+	<h2 style="color: white;  margin-left: 221px; font-size: 47px;margin-top: 74px;">Fakebook</h2>
+	<div id="loginContainer">
+		<div id="inputContainer">
+			<button type="Submit" onclick="login()" style="background-color: #6b1d30;" name="loginButton">Log In with CryptoPass</button>
+			<button type="Submit" style="background-color: red" name="loginButton">Log In with Google</button>
+			<button type="Submit" style="background-color: #212178" name="loginButton">Log In with LinkedIn</button>
+		</div>
+	</div>
+</div>
+
+ <script>
+ 		if (typeof web3 !== 'undefined') {
+            web3 = new Web3(web3.currentProvider);
+            web3.currentProvider.enable();
+            console.log("Sucess");
+            
+        } else {
+            // set the provider you want from Web3.providers
+            web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+            console.log("No Sucess");
+			alert('Turn In MetaMask');
+        }
+						
+        web3.eth.defaultAccount = web3.eth.accounts[0];
+        var publickey = web3.eth.defaultAccount;
+        console.log("Account: " +web3.eth.defaultAccount);
+
+        function toHex(str) {
+        	var hex = '';
+		 	for(var i=0;i<str.length;i++) {
+		  		hex += ''+str.charCodeAt(i).toString(16);
+		 	}
+		 	return hex;
+		};
+
+        ethereum.enable();
+        var abicode = web3.eth.contract([
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "i",
+        "type": "uint256"
+      }
+    ],
+    "name": "setFlag",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_pubKey",
+        "type": "address"
+      },
+      {
+        "name": "_userName",
+        "type": "string"
+      }
+    ],
+    "name": "setValue",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "name": "val",
+        "type": "bool"
+      }
+    ],
+    "name": "sameName",
+    "type": "event"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "flag",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "getFlag",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_pubKey",
+        "type": "address"
+      }
+    ],
+    "name": "getValue",
+    "outputs": [
+      {
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "usedUname",
+    "outputs": [
+      {
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  }
+]);
+		var cont_det = abicode.at('0x5bf34678240d8501ba982d95f28076ddb6f5696a');
+		console.log('Contract details: ' + cont_det);
+		var pk_name;
+		function login(){
+			var signature;
+      console.log(web3.eth.accounts[0])
+			cont_det.getValue(web3.eth.accounts[0],function (err,res){
+				pk_name = res;
+				web3.personal.sign(pk_name,web3.eth.accounts[0], function (err,res){
+					signature = res;
+					web3.personal.ecRecover(pk_name,signature,function(err,res){
+						var temp = res;
+						if (temp == web3.eth.accounts[0] && pk_name != ""){
+							console.log("True");
+							console.log('Temp: ' + temp);
+							console.log('PK: ' + pk_name);
+							window.location.href = "register.html";
+
+						}else{
+							console.log("False");
+							console.log('Temp: ' + temp);
+							console.log('PK: ' + pk_name);
+							alert('Validation failed');
+							window.location.href = "../cryptopass/index.html";
+
+						}
+					});
+				});
+			});
+		}
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,82 @@
+
+#background{
+
+background-color: #000;
+background-image: url(../images/bg.jpg);
+background-position: centre;
+background-size: cover;
+display: table;
+height: 100%;
+width:100%;
+
+}
+
+
+html,body{
+
+	padding: 0;
+	margin: 0;
+	height: 100%;
+}
+
+#loginContainer *{
+	color: #fff;
+	font-family: "Helvetica Neue", "Helvetica","Arial",sans-serif;
+	font-weight: normal;
+	line-height: 1em;
+	box-sizing: border-box;
+
+
+}
+
+#loginForm{
+
+	margin-left: 46px;
+
+margin-top: 9px;
+}
+
+#loginContainer{
+width: 80%;
+margin: 0 auto;
+position: relative;
+max-width: 1024px;
+
+}
+
+#inputContainer {
+    width: 400px;
+    padding: 45px;
+    float: left;
+
+}
+
+
+#inputContainer label{
+    color: white;
+}
+
+#inputContainer button{
+	    background-color: transparent;
+    border: 0.5px solid white;
+    display: block;
+    width: 100%;
+
+    line-height: 35px;
+    font-size: 18px;
+    letter-spacing: 1px;
+    margin: 26px auto;
+}
+
+#inputContainer button:hover{
+	cursor: pointer;
+}
+
+.hasAccountText span{
+	    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+}
+.hasAccountText{
+	text-align: centre;
+}

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>CryptoPass</title>
+	<meta charset="UTF-8">
+	<meta name="description" content="Cryptocurrency Landing Page Template">
+	<meta name="keywords" content="cryptocurrency, unica, creative, html">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Favicon -->
+	<link href="img/favicon.ico" rel="shortcut icon"/>
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="css/font-awesome.min.css"/>
+	<link rel="stylesheet" href="css/themify-icons.css"/>
+	<link rel="stylesheet" href="css/animate.css"/>
+	<link rel="stylesheet" href="css/owl.carousel.css"/>
+	<link rel="stylesheet" href="css/style.css"/>
+
+
+	<!--[if lt IE 9]>
+	  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+</head>
+<body>
+	<!-- Page Preloder -->
+	<div id="preloder">
+		<div class="loader"></div>
+	</div>
+
+	<!-- Header section -->
+	<header class="header-section clearfix">
+		<div class="container-fluid">
+			<a href="index.html" class="site-logo">
+				<img src="img/logo.png" alt="">
+			</a>
+			<div class="responsive-bar"><i class="fa fa-bars"></i></div>
+			<a href="" class="user"><i class="fa fa-user"></i></a>
+	
+		
+		</div>
+	</header>
+	<!-- Header section end -->
+
+
+	<!-- Hero section -->
+	<section class="hero-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 hero-text">
+					<h2>Login with the <span>Click Of</span> A Button  </h2>
+						<input id="userNamelogin" type="text" name="userName" placeholder="Enter your username" required>
+						<button onclick="register()" class="site-btn sb-gradients">Register</button>
+				</div>
+				<div class="col-md-6">
+					<img src="img/laptop.png" class="laptop-image" alt="">
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Hero section end -->
+
+<script>
+        if (typeof web3 !== 'undefined') {
+            web3 = new Web3(web3.currentProvider);
+            web3.currentProvider.enable();
+            console.log("Sucess");
+            
+        } else {
+            // set the provider you want from Web3.providers
+            web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+            console.log("No Sucess");
+            alert('Turn In MetaMask');
+        }
+
+        web3.eth.defaultAccount = web3.eth.accounts[0];
+        var publickey = web3.eth.defaultAccount;
+        console.log("Account: " +web3.eth.defaultAccount);
+
+        function toHex(str) {
+            var hex = '';
+            for(var i=0;i<str.length;i++) {
+                hex += ''+str.charCodeAt(i).toString(16);
+            }
+            return hex;
+        };
+
+        var username = document.getElementById('userNamelogin').value;
+        console.log("Username: " + username);
+        ethereum.enable();
+        
+        var abicode = web3.eth.contract([
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "i",
+				"type": "uint256"
+			}
+		],
+		"name": "setFlag",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_pubKey",
+				"type": "address"
+			},
+			{
+				"name": "_userName",
+				"type": "string"
+			}
+		],
+		"name": "setValue",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "val",
+				"type": "bool"
+			}
+		],
+		"name": "sameName",
+		"type": "event"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "flag",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getFlag",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_pubKey",
+				"type": "address"
+			}
+		],
+		"name": "getValue",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "usedUname",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	}
+]);
+        var cont_det = abicode.at('0x5bf34678240d8501ba982d95f28076ddb6f5696a');
+
+
+
+        // async function f() {
+
+        // let promise = new Promise((resolve, reject) => {
+        //   setTimeout(() => resolve("done!"), 1000)
+        // });
+
+        // let result = await promise; // wait till the promise resolves (*)
+
+        // alert(result); // "done!"
+        // }
+
+        // f();
+
+
+
+        async function register(){
+
+            
+            cont_det.setValue(web3.eth.accounts[0],username, function(err,res){
+
+                
+                cont_det.getFlag(function (err,res){
+                    console.log('Error: ' + err + 'Res: ' + res);
+                    if(res == 1){
+                        alert('Username already exists, please enter a new username');
+                    }else{
+                        alert('Registered Sucessfully');
+			            console.log('Sucessfully created account');
+			            window.location.href ="about.html";
+                    }
+                });
+            });
+        }
+    </script>
+
+
+	<!--====== Javascripts & Jquery ======-->
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/owl.carousel.min.js"></script>
+	<script src="js/main.js"></script>
+</body>
+</html>
