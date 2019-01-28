@@ -1,4 +1,4 @@
-pragma solidity ^0.4.25;
+pragma solidity ^0.5.0;
 
 contract CryptoPass {
 
@@ -9,12 +9,10 @@ contract CryptoPass {
 
     // start adding address in array
 
-
     uint public flag = 2;
     event sameName(bool val);
 
-
-    function setValue(address _pubKey, string _userName) public {
+    function setValue(address _pubKey, string memory _userName) public {
 
         usedUname.push('Trial');
 
@@ -22,10 +20,6 @@ contract CryptoPass {
 
         for (uint i=0; i<arrayLength; i++) {
               // do something
-
-
-
-
             if(stringsEqual(usedUname[i],_userName)){
 
                 flag=1;
@@ -45,7 +39,7 @@ contract CryptoPass {
         }
     }
 
-    function getValue(address _pubKey) public view returns (string) {
+    function getValue(address _pubKey) public view returns (string memory) {
         loginReq(_pubKey);
         return (keyUserName[_pubKey]);
     }
@@ -65,7 +59,7 @@ contract CryptoPass {
 
 
 
-    function stringsEqual(string storage _a, string memory _b) internal returns (bool) {
+    function stringsEqual(string storage _a, string memory _b) internal view returns (bool) {
         bytes storage a = bytes(_a);
         bytes memory b = bytes(_b);
 
