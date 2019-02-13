@@ -9,3 +9,6 @@
   If the user is registered with CryptoPass he will be validated using his public key, private key (provided by MetaMask) and username that will be done in backend, so all that the user has to do is just click Login with CryptoPass and he's/she's in.
   
  CryptoPass is a website which registers the user with a unique username. It uses smart contracts to validate the user in Backend using keys provided by MetaMask.
+ 
+# Recognition
+This repository / project was a part of @I_Hack Hackathon 2019 where it got recognized as winner in Blockchain Track.
